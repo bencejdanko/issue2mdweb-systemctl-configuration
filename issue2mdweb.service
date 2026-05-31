@@ -1,0 +1,17 @@
+[Unit]
+Description=Docker Container for issue2mdweb
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker stop issue2mdweb
+ExecStartPre=-/usr/bin/docker rm issue2mdweb
+ExecStart=/usr/bin/docker run --name issue2mdweb -p 8081:8080 bigwhite/issue2mdweb
+
+[Service]
+ExecStop=/usr/bin/docker stop issue2mdweb
+
+[Install]
+WantedBy=multi-user.target
